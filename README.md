@@ -1,4 +1,11 @@
 # TechMyths
+This doc intends to explain technical myths which are poorly explained or defined or a industrial terminology which is hard to be searched on Google or Wikipedia, that a myth could be a term, or a concept, even a functionality that provided by any instance, like hardware or OS.
+
+I would treat this doc act as a low level technical dictionary or a research helper to accelerate people who interested in studying low level area, so we can avoid reading thousands irrelevant pages to actually find few lines of useful sentences in different paper or datasheet.
+
+This will not document every single low level concept but for those which is really hard to be searched on the internet.
+
+Contribution is welcome.
 
 - [TechMyths](#techmyths)
   - [Base Address Register (BAR)](#base-address-register-bar)
@@ -8,7 +15,6 @@
   - [UEFI](#uefi)
 
 ## Base Address Register (BAR)
-
 BAR are usually allocated within a dedicated memory range based on the SoC series where we called it as PCI Memory Address Range, and the corresponding UEFI/BIOS is generally accountable for the address assignment for each PCI device, we also call that device memory.
 
 ## Memory-Mapped I/O (MMI0)
