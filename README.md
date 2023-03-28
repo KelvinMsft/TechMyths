@@ -9,6 +9,7 @@ Contribution is welcome.
 
 - [TechMyths](#techmyths)
   - [Memory-Mapped I/O (MMI0)](#memory-mapped-io-mmi0)
+  - [PCI based MMIO Device](#pci-memory-mapped-io-mmi0)
   - [Base Address Register (BAR)](#base-address-register-bar)
   - [Direct Memory Access (DMA)](#direct-memory-access-dma)
   - [ACPI device namespace](#acpi-device-namespace)
@@ -17,7 +18,10 @@ Contribution is welcome.
 ## Memory-Mapped I/O (MMI0)
 MMIO is a method that a software, usually the device drivers, to access the registers in the devices through the memory interface, which is the ability that provided by the address decoder, after memory mapped unit translates the virtual address into physical address, it forwards the request to Local APIC, I/O APIC, southbridge or PCH, or any other devices according to the hardware specific system memory map, depends on the implementation.
 
-PCI Root Complex/ Host Bridge is one of the receiver, it then fills the physial memory address onto AD[0..31] or AD[0..63] lines, and each devices got 3 cycle to respond the transaction according to its Base Address Register (BAR).
+## PCI based MMIO device
+MMIO is the functionality that provided by the hardware itself, however, unlike local APIC, I/O APIC, etc... There's a lot of devices are not defined in the system memory map during manufacturing, these devices could possibly be a PCI-compliant, all the PCI-compliants could "dynamically" extend the system memory map through its machanism.
+
+Upon the PCI Root Complex/ Host Bridge receive the decoded address, it generates the transaction and fills the physial memory address onto AD[0..31] or AD[0..63] lines, and each devices got 3 cycle to respond the transaction according to its Base Address Register (BAR), and that is positve decoded. Otherwise, if there's no devices on the bus are positvely respond (decode) to the request, the host would just forward the request to those device which would like to unconditionally claim the request for further dispatch, it is subtractively decoded, another bus device like PCI-to-PCI bridges, then creates another transaction within its topology, and so on.
 
 ## Base Address Register (BAR)
 BAR are usually allocated within a dedicated memory range based on the SoC series where we called it as PCI Memory Address Range, and the corresponding UEFI/BIOS is generally accountable for the address assignment for each PCI device, we also call that device memory.
